@@ -8,23 +8,23 @@
     <fragment
         android:id="@+id/navigation_nowplaying"
         android:name="com.example.myapplicationbot.view.nowplaying.NowPlayingFragment"
-        android:label="Now playing"
+        android:label="@string/now_playing"
         tools:layout="@layout/fragment_nowplaying" />
 
     <fragment
         android:id="@+id/navigation_poppular"
         android:name="com.example.myapplicationbot.view.popular.PopularFragment"
-        android:label="Popular"
+        android:label="@string/popular"
         tools:layout="@layout/fragment_popular" />
 
     <fragment
         android:id="@+id/navigation_toprated"
         android:name="com.example.myapplicationbot.view.toprated.TopRatedFragment"
-        android:label="Top rated"
+        android:label="@string/top_rated"
         tools:layout="@layout/fragment_toprated" />
     <fragment
         android:id="@+id/navigation_fav"
         android:name="com.example.myapplicationbot.view.favourites.FavouritesFragment"
-        android:label="Favourites"
+        android:label="@string/favourites"
         tools:layout="@layout/fragment_fav" />
 </navigation>

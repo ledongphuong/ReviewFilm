@@ -1,16 +1,17 @@
 package com.example.myapplicationbot.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
+
 import com.example.myapplicationbot.model.entities.ResultList;
-import com.example.myapplicationbot.model.repository.PopularRepository;
+import com.example.myapplicationbot.model.repository.FilmRepository;
 
 public class PopularViewModel {
-    private PopularRepository popularRepository = new PopularRepository();
+    private FilmRepository filmRepository = new FilmRepository();
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     public MutableLiveData<String> errorObs = new MutableLiveData<>();
 
     public void getFimPopular(int page) {
-        popularRepository.getFilmPopuplar(page, new PopularRepository.GetFilmResponse() {
+        filmRepository.getFilmPopuplar(page, new FilmRepository.GetFilmResponse() {
             @Override
             public void onResponse(ResultList resultList) {
                 getFilmObs.postValue(resultList);

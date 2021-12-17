@@ -20,15 +20,9 @@ import com.example.myapplicationbot.view.recycleview.FilmAdapter;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
 import com.example.myapplicationbot.model.entities.ResultList;
-import com.example.myapplicationbot.model.retrofit.RetrofitDefault;
-import com.example.myapplicationbot.model.retrofit.RetrofitMethod;
 import com.example.myapplicationbot.viewmodel.NowPlayingViewModel;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NowPlayingFragment extends Fragment {
     private FragmentNowplayingBinding binding;
