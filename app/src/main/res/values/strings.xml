@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My Applicationbot</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="detail">detail</string>
+    <string name="overview">Overview</string>
+    <string name="trailer">trailer</string>
+    <string name="back">back</string>
+    <string name="watch">Watch</string>
+</resources>

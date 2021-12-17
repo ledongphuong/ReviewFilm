@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_nowplaying"
+        android:icon="@drawable/ic_nowplaying_black_24"
+        android:title="Now playing" />
+
+    <item
+        android:id="@+id/navigation_poppular"
+        android:icon="@drawable/ic_popular_black_24"
+        android:title="Popular" />
+
+    <item
+        android:id="@+id/navigation_toprated"
+        android:icon="@drawable/ic_toprated_black_24"
+        android:title="Top rated" />
+
+    <item
+        android:id="@+id/navigation_fav"
+        android:title="Favourites"
+        android:icon="@drawable/ic_fav_black_24"
+        />
+
+</menu>

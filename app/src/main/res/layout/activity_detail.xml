@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/back_image_detail"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/main_image_detail"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="184dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_title_detail"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/detail"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
+        app:layout_constraintTop_toBottomOf="@+id/back_image_detail" />
+
+    <TextView
+        android:id="@+id/text_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_detail"
+        tools:text="rateeeeeeeee" />
+
+    <TextView
+        android:id="@+id/text_votes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
+        app:layout_constraintTop_toBottomOf="@+id/text_rate"
+        tools:text="rateeeeeeeee" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
+        app:layout_constraintTop_toBottomOf="@+id/text_votes"
+        tools:text="rateeeeeeeee" />
+
+    <TextView
+        android:id="@+id/text_language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
+        app:layout_constraintTop_toBottomOf="@+id/text_date"
+        tools:text="rateeeeeeeee" />
+
+    <TextView
+        android:id="@+id/text_ov"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/overview"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_image_detail" />
+
+    <TextView
+        android:id="@+id/text_decription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_ov"
+        tools:layout_editor_absoluteX="16dp"
+        tools:text="text_decription" />
+
+    <Button
+        android:id="@+id/btnTrailer"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/trailer"
+        app:layout_constraintBottom_toTopOf="@+id/text_decription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_title_detail" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btnWatch"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="150dp"
+        android:backgroundTint="@color/teal_200"
+        android:text="@string/watch"
+        app:layout_constraintEnd_toEndOf="@+id/btnFav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_decription" />
+
+    <Button
+        android:id="@+id/btnFav"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#B22222"
+        android:text="Favourite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnWatch"
+        app:layout_constraintTop_toBottomOf="@+id/text_decription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

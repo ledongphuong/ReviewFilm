@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.3828125" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.3828125" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.3828125" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/activity_detail.xml" value="0.20520833333333333" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/activity_trailer.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_detail.xml" value="0.20520833333333333" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_nowplaying.xml" value="0.20520833333333333" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_popular.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/fragment_toprated.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/layout/item_film.xml" value="0.20520833333333333" />
+        <entry key="..\:/JavaAndroid/MyApplicationbot/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/activity_detail.xml" value="0.25" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/fragment_fav.xml" value="0.1515625" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/fragment_nowplaying.xml" value="0.1515625" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/fragment_popular.xml" value="0.1515625" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/fragment_toprated.xml" value="0.1515625" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/layout/item_film.xml" value="0.19427083333333334" />
+        <entry key="..\:/JavaAndroid/ReviewFilmDemo.github.io/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
