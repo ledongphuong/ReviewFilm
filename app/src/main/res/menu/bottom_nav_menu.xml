@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nvNowplaying"
+        android:icon="@drawable/ic_nowplaying_black"
+        android:title="@string/now_playing" />
+
+    <item
+        android:id="@+id/nvPoppular"
+        android:icon="@drawable/ic_popular_black"
+        android:title="@string/popular" />
+
+    <item
+        android:id="@+id/nvToprated"
+        android:icon="@drawable/ic_toprated_black"
+        android:title="@string/top_rated" />
+
+    <item
+        android:id="@+id/nvFav"
+        android:title="@string/favourites"
+        android:icon="@drawable/ic_fav_black"
+        />
+
+</menu>

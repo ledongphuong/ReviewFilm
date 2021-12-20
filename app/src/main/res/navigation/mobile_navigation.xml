@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nvNowplaying">
+
+    <fragment
+        android:id="@+id/nvNowplaying"
+        android:name="com.example.myapplicationbot.view.nowplaying.NowPlayingFragment"
+        android:label="@string/now_playing"
+        tools:layout="@layout/fragment_nowplaying" />
+
+    <fragment
+        android:id="@+id/nvPoppular"
+        android:name="com.example.myapplicationbot.view.popular.PopularFragment"
+        android:label="@string/popular"
+        tools:layout="@layout/fragment_popular" />
+
+    <fragment
+        android:id="@+id/nvToprated"
+        android:name="com.example.myapplicationbot.view.toprated.TopRatedFragment"
+        android:label="@string/top_rated"
+        tools:layout="@layout/fragment_toprated" />
+    <fragment
+        android:id="@+id/nvFav"
+        android:name="com.example.myapplicationbot.view.favourites.FavouritesFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/fragment_fav" />
+</navigation>
