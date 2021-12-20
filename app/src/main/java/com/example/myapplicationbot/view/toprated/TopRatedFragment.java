@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class TopRatedFragment extends Fragment {
     private FragmentTopratedBinding binding;
     private FilmAdapter filmAdapter;
-    private ArrayList<ItemFilm> filmArrayList;
     private boolean loading = false;
     private TopRatedViewModel viewModel = new TopRatedViewModel();
 
@@ -40,9 +39,9 @@ public class TopRatedFragment extends Fragment {
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
         public void onShowDetailClick(ItemFilm itemFilm) {
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra(DetailActivity.SEND_DATA_DETAIL, itemFilm);
-            getActivity().startActivity(intent);
+            getContext().startActivity(intent);
         }
     };
 
@@ -72,14 +71,9 @@ public class TopRatedFragment extends Fragment {
         });
 
         // RecycleView
-        filmArrayList = new ArrayList<>();
         filmAdapter = new FilmAdapter(itemFilmClick);
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getActivity()));
-        LinearLayoutManager mLayoutManager;
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        binding.rvItemFilm.setLayoutManager(mLayoutManager);
-        filmAdapter.addData(filmArrayList);
 
         //get page first
         viewModel.getFilmTopRated();
@@ -87,10 +81,9 @@ public class TopRatedFragment extends Fragment {
         binding.rvItemFilm.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-
                 if (dy > 0) { //check for scroll down
                     if (!loading) {
-                        if ((mLayoutManager.findLastCompletelyVisibleItemPosition() == filmAdapter.getItemCount() - 1)) {
+                        if ((((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition() == filmAdapter.getItemCount() - 1)) {
                             loading = true;
                             viewModel.getFilmTopRated();
                         }

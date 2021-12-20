@@ -15,19 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplicationbot.databinding.FragmentNowplayingBinding;
+import com.example.myapplicationbot.model.entities.ItemFilm;
+import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.view.DetailActivity;
 import com.example.myapplicationbot.view.recycleview.FilmAdapter;
-import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
-import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.viewmodel.NowPlayingViewModel;
-
-import java.util.ArrayList;
 
 public class NowPlayingFragment extends Fragment {
     private FragmentNowplayingBinding binding;
     private FilmAdapter filmAdapter;
-    private ArrayList<ItemFilm> filmArrayList;
     private boolean loading = false;
     private NowPlayingViewModel viewModel = new NowPlayingViewModel();
 
@@ -39,9 +36,9 @@ public class NowPlayingFragment extends Fragment {
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
         public void onShowDetailClick(ItemFilm itemFilm) {
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra(DetailActivity.SEND_DATA_DETAIL, itemFilm);
-            getActivity().startActivity(intent);
+            getContext().startActivity(intent);
         }
     };
 
@@ -70,14 +67,9 @@ public class NowPlayingFragment extends Fragment {
         });
 
         // RecycleView
-        filmArrayList = new ArrayList<>();
         filmAdapter = new FilmAdapter(itemFilmClick);
         binding.rvItemFilm.setAdapter(filmAdapter);
-        binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getActivity()));
-        LinearLayoutManager mLayoutManager;
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        binding.rvItemFilm.setLayoutManager(mLayoutManager);
-        filmAdapter.addData(filmArrayList);
+        binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //get page first
         viewModel.getFilmNowPlaying();
@@ -88,7 +80,7 @@ public class NowPlayingFragment extends Fragment {
 
                 if (dy > 0) { //check for scroll down
                     if (!loading) {
-                        if ((mLayoutManager.findLastCompletelyVisibleItemPosition() == filmAdapter.getItemCount() - 1)) {
+                        if ((((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition() == filmAdapter.getItemCount() - 1)) {
                             loading = true;
                             viewModel.getFilmNowPlaying();
                         }

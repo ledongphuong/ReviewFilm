@@ -33,15 +33,15 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel.getTrailerObs.observe(this, new Observer<ResultTrailer>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(ResultTrailer resultTrailer) {
-                ItemTrailer itemTrailer = resultTrailer.getResult().stream().filter(x -> "YouTube".equals(x.getSite())).findAny().orElse(null);
-                if (itemTrailer == null) {
-                    Toast.makeText(DetailActivity.this, "VIDEO LINK DELETED", Toast.LENGTH_SHORT).show();
-                } else {
-                    openLinkYoutube(DetailActivity.this,itemTrailer.getKey());
+                for (ItemTrailer item : resultTrailer.getResult()) {
+                    if (item.getSite().equals("YouTube")) {
+                        openLinkYoutube(DetailActivity.this, item.getKey());
+                        return;
+                    }
                 }
+                Toast.makeText(DetailActivity.this, "VIDEO LINK DELETED", Toast.LENGTH_SHORT).show();
             }
         });
         viewModel.errorObs.observe(this, new Observer<String>() {
@@ -53,13 +53,13 @@ public class DetailActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         ItemFilm itemFilm = (ItemFilm) extras.getSerializable(SEND_DATA_DETAIL);
 
-        glideImage(this,itemFilm.getBackdropPath(),binding.ivBackDetail);
-        glideImage(this,itemFilm.getPosterPath(),binding.ivMainDetail);
+        glideImage(this, itemFilm.getBackdropPath(), binding.ivBackDetail);
+        glideImage(this, itemFilm.getPosterPath(), binding.ivMainDetail);
         binding.tvTitleDetail.setText(itemFilm.getTitle());
         binding.tvRate.setText(getString(R.string.max_rate, itemFilm.getVoteAverage()));
-        binding.tvVotes.setText(getString(R.string.votes,itemFilm.getVoteCount()));
+        binding.tvVotes.setText(getString(R.string.votes, itemFilm.getVoteCount()));
         binding.tvDate.setText(itemFilm.getReleaseDate());
-        binding.tvLanguage.setText(getString(R.string.sub,itemFilm.getOriginalLanguage()));
+        binding.tvLanguage.setText(getString(R.string.sub, itemFilm.getOriginalLanguage()));
         binding.tvDecription.setText(itemFilm.getOverview());
         binding.btBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.btFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailActivity.this,"ADDED TO FAVOURITES",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailActivity.this, "ADDED TO FAVOURITES", Toast.LENGTH_SHORT).show();
             }
         });
     }
