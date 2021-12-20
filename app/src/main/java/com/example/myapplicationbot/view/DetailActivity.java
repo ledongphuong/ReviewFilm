@@ -4,34 +4,40 @@ import static com.example.myapplicationbot.utils.IntentUtils.openLinkYoutube;
 import static com.example.myapplicationbot.utils.Utilities.glideImage;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.room.Room;
 
 import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.databinding.ActivityDetailBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.entities.ItemTrailer;
 import com.example.myapplicationbot.model.entities.ResultTrailer;
-import com.example.myapplicationbot.viewmodel.TrailerViewModel;
+import com.example.myapplicationbot.model.room.AppDatabase;
+import com.example.myapplicationbot.model.room.ItemFavouriteDAO;
+import com.example.myapplicationbot.viewmodel.DetailViewModel;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
     private ActivityDetailBinding binding;
     public static final String SEND_DATA_DETAIL = "send_data_to_detail";
-    private TrailerViewModel viewModel = new TrailerViewModel();
+    private DetailViewModel viewModel = new DetailViewModel();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "listFav")
+                .allowMainThreadQueries()
+                .build();
         viewModel.getTrailerObs.observe(this, new Observer<ResultTrailer>() {
             @Override
             public void onChanged(ResultTrailer resultTrailer) {
@@ -44,6 +50,15 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(DetailActivity.this, "VIDEO LINK DELETED", Toast.LENGTH_SHORT).show();
             }
         });
+        viewModel.checkFilmIsFavouritedObs.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isFavourite) {
+                if(isFavourite){
+                    binding.btFav.setText("UnFavourite");
+                }
+            }
+        });
+
         viewModel.errorObs.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -83,8 +98,19 @@ public class DetailActivity extends AppCompatActivity {
         binding.btFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailActivity.this, "ADDED TO FAVOURITES", Toast.LENGTH_SHORT).show();
+                ItemFavouriteDAO itemFavouriteDAO = database.getItemDAO();
+                if(itemFavouriteDAO.geItemById(itemFilm.getId()) == null) {
+                    itemFavouriteDAO.insert(itemFilm);
+                    List<ItemFilm> items = itemFavouriteDAO.getItems();
+                    System.out.println("list favou" + items);
+                    Toast.makeText(DetailActivity.this, "ADDED TO FAVOURITES", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(DetailActivity.this, "HAD LIST ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        viewModel.checkFilmIsFavourited(itemFilm.getId());
     }
 }

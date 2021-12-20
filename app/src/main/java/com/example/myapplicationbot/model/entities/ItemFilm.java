@@ -1,16 +1,27 @@
 package com.example.myapplicationbot.model.entities;
 
+import androidx.annotation.NonNull;
+import androidx.room.Database;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity(tableName = "items")
 public class ItemFilm implements Serializable {
     private boolean adult;
     @SerializedName("backdrop_path")
     private String backdropPath;
     @SerializedName("genre_ids")
+    @TypeConverters(Converter.class)
     private List<Integer> genreIds;
+    @PrimaryKey
+    @NonNull
     private int id;
     @SerializedName("original_language")
     private String originalLanguage;
