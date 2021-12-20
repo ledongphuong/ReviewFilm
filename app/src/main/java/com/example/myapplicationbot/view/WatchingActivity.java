@@ -1,14 +1,14 @@
 package com.example.myapplicationbot.view;
 
+import static com.example.myapplicationbot.constant.Constant.URL_MP4_CONSTANT;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplicationbot.R;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -23,17 +23,12 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplicationbot.databinding.ActivityDetailBinding;
 import com.example.myapplicationbot.databinding.ActivityWatchingBinding;
 
 public class WatchingActivity extends AppCompatActivity {
     private ActivityWatchingBinding binding;
     SimpleExoPlayerView exoPlayerView;
     SimpleExoPlayer exoPlayer;
-    String videoURL = "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +41,15 @@ public class WatchingActivity extends AppCompatActivity {
         binding = ActivityWatchingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        exoPlayerView = findViewById(R.id.idExoPlayerVIew);
-        try {
-            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-            Uri videouri = Uri.parse(videoURL);
-            DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            MediaSource mediaSource = new ExtractorMediaSource(videouri, dataSourceFactory, extractorsFactory, null, null);
-            exoPlayerView.setPlayer(exoPlayer);
-            exoPlayer.prepare(mediaSource);
-            exoPlayer.setPlayWhenReady(true);
-        } catch (Exception e) {
-            Log.e("TAG", "Error : " + e.toString());
-        }
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+        exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+        Uri videouri = Uri.parse(URL_MP4_CONSTANT);
+        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        MediaSource mediaSource = new ExtractorMediaSource(videouri, dataSourceFactory, extractorsFactory, null, null);
+        binding.evFilm.setPlayer(exoPlayer);
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(true);
     }
 }

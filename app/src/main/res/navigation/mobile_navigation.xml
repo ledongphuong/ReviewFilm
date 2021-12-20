@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_nowplaying">
+    app:startDestination="@+id/nvNowplaying">
 
     <fragment
-        android:id="@+id/navigation_nowplaying"
+        android:id="@+id/nvNowplaying"
         android:name="com.example.myapplicationbot.view.nowplaying.NowPlayingFragment"
         android:label="@string/now_playing"
         tools:layout="@layout/fragment_nowplaying" />
 
     <fragment
-        android:id="@+id/navigation_poppular"
+        android:id="@+id/nvPoppular"
         android:name="com.example.myapplicationbot.view.popular.PopularFragment"
         android:label="@string/popular"
         tools:layout="@layout/fragment_popular" />
 
     <fragment
-        android:id="@+id/navigation_toprated"
+        android:id="@+id/nvToprated"
         android:name="com.example.myapplicationbot.view.toprated.TopRatedFragment"
         android:label="@string/top_rated"
         tools:layout="@layout/fragment_toprated" />
     <fragment
-        android:id="@+id/navigation_fav"
+        android:id="@+id/nvFav"
         android:name="com.example.myapplicationbot.view.favourites.FavouritesFragment"
         android:label="@string/favourites"
         tools:layout="@layout/fragment_fav" />

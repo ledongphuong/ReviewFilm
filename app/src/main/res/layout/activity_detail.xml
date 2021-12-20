@@ -6,74 +6,75 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/back_image_detail"
+        android:id="@+id/ivBackDetail"
         android:layout_width="match_parent"
         android:layout_height="215dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/main_image_detail"
+        android:id="@+id/ivMainDetail"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="184dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivBackDetail"
+        android:layout_marginTop="-30dp"
+        />
 
     <TextView
-        android:id="@+id/text_title_detail"
+        android:id="@+id/tvTitleDetail"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/detail"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/back_image_detail" />
+        app:layout_constraintStart_toEndOf="@+id/ivMainDetail"
+        app:layout_constraintTop_toBottomOf="@+id/ivBackDetail" />
 
     <TextView
-        android:id="@+id/text_rate"
+        android:id="@+id/tvRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_detail"
-        tools:text="rateeeeeeeee" />
+        app:layout_constraintStart_toEndOf="@+id/ivMainDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetail"
+        tools:text="text rate view" />
 
     <TextView
-        android:id="@+id/text_votes"
+        android:id="@+id/tvVotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/text_rate"
-        tools:text="rateeeeeeeee" />
+        app:layout_constraintStart_toEndOf="@+id/ivMainDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvRate"
+        tools:text="text vote view" />
 
     <TextView
-        android:id="@+id/text_date"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/text_votes"
-        tools:text="rateeeeeeeee" />
+        app:layout_constraintStart_toEndOf="@+id/ivMainDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvVotes"
+        tools:text="text date view" />
 
     <TextView
-        android:id="@+id/text_language"
+        android:id="@+id/tvLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintStart_toEndOf="@+id/main_image_detail"
-        app:layout_constraintTop_toBottomOf="@+id/text_date"
-        tools:text="rateeeeeeeee" />
+        app:layout_constraintStart_toEndOf="@+id/ivMainDetail"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        tools:text="text language view" />
 
     <TextView
-        android:id="@+id/text_ov"
+        android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -82,32 +83,32 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_image_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/ivMainDetail" />
 
     <TextView
-        android:id="@+id/text_decription"
+        android:id="@+id/tvDecription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_ov"
+        app:layout_constraintTop_toBottomOf="@+id/tvOverview"
         tools:layout_editor_absoluteX="16dp"
-        tools:text="text_decription" />
+        tools:text="text decription view" />
 
     <Button
-        android:id="@+id/btnTrailer"
+        android:id="@+id/btTrailer"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginBottom="20dp"
         android:text="@string/trailer"
-        app:layout_constraintBottom_toTopOf="@+id/text_decription"
+        app:layout_constraintBottom_toTopOf="@+id/tvDecription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_date"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_detail" />
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetail" />
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -115,19 +116,19 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/btnWatch"
+        android:id="@+id/btWatch"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginRight="150dp"
         android:backgroundTint="@color/teal_200"
         android:text="@string/watch"
-        app:layout_constraintEnd_toEndOf="@+id/btnFav"
+        app:layout_constraintEnd_toEndOf="@+id/btFav"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_decription" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDecription" />
 
     <Button
-        android:id="@+id/btnFav"
+        android:id="@+id/btFav"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="150dp"
@@ -135,6 +136,6 @@
         android:backgroundTint="@color/colorRed"
         android:text="Favourite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/btnWatch"
-        app:layout_constraintTop_toBottomOf="@+id/text_decription" />
+        app:layout_constraintStart_toStartOf="@+id/btWatch"
+        app:layout_constraintTop_toBottomOf="@+id/tvDecription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

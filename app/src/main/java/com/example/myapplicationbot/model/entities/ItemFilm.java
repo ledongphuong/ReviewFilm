@@ -3,8 +3,6 @@ package com.example.myapplicationbot.model.entities;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFilm implements Serializable {

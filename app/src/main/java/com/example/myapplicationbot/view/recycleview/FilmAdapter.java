@@ -1,29 +1,26 @@
 package com.example.myapplicationbot.view.recycleview;
 
-import android.content.Context;
+import static com.example.myapplicationbot.utils.Utilities.glideImage;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplicationbot.R;
+import com.example.myapplicationbot.databinding.ItemFilmBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
     private ItemFilmClick itemFilmClick;
     private ArrayList<ItemFilm> filmArrayList;
 
-    public FilmAdapter(Context context, ItemFilmClick itemFilmClick) {
-        this.context = context;
+    public FilmAdapter(ItemFilmClick itemFilmClick) {
         this.itemFilmClick = itemFilmClick;
 
     }
@@ -31,9 +28,9 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View filmView = inflater.inflate(R.layout.item_film, parent, false);
-        ViewHolder viewHolder = new ViewHolder(filmView, itemFilmClick);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemFilmBinding binding = ItemFilmBinding.inflate(inflater, parent, false);
+        ViewHolder viewHolder = new ViewHolder(binding, itemFilmClick);
         return viewHolder;
     }
 
@@ -62,28 +59,20 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView filmImage;
-        private TextView filmName;
+        private ItemFilmBinding binding;
         private ItemFilmClick itemFilmClick;
-        private TextView filmRate;
-        private TextView filmVotes;
 
-        public ViewHolder(@NonNull View itemView, ItemFilmClick itemFilmClick) {
-            super(itemView);
-            filmImage = itemView.findViewById(R.id.film_image);
-            filmName = itemView.findViewById(R.id.film_name);
-            filmRate = itemView.findViewById(R.id.film_rate);
-            filmVotes = itemView.findViewById(R.id.film_vote);
+        public ViewHolder(@NonNull ItemFilmBinding binding, ItemFilmClick itemFilmClick) {
+            super(binding.getRoot());
+            this.binding = binding;
             this.itemFilmClick = itemFilmClick;
         }
 
         public void bind(ItemFilm itemFilm) {
-            Glide.with(context)
-                    .load("http://image.tmdb.org/t/p/w500" + itemFilm.getPosterPath())
-                    .into(filmImage);
-            filmName.setText(itemFilm.getTitle());
-            filmRate.setText(String.valueOf(itemFilm.getVoteAverage()) + "/10");
-            filmVotes.setText(String.valueOf(itemFilm.getVoteCount()) + " votes");
+            glideImage(itemView.getContext(), itemFilm.getPosterPath(), binding.ivImage);
+            binding.tvTitle.setText(itemFilm.getTitle());
+            binding.tvRate.setText(itemView.getContext().getString(R.string.max_rate, itemFilm.getVoteAverage()));
+            binding.tvVotes.setText(itemView.getContext().getString(R.string.votes, itemFilm.getVoteCount()));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

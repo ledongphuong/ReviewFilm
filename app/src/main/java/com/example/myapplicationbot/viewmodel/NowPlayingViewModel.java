@@ -9,12 +9,14 @@ public class NowPlayingViewModel {
     private FilmRepository filmRepository = new FilmRepository();
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     public MutableLiveData<String> errorObs = new MutableLiveData<>();
+    private int page = 1;
 
-    public void getFilmNowPlaying(int page) {
-        filmRepository.getFilmNowPlaying(page, new FilmRepository.GetFilmResponse() {
+    public void getFilmNowPlaying() {
+        filmRepository.getFilmNowPlaying(page, new FilmRepository.GetFilmNowPlayingResponse() {
             @Override
             public void onResponse(ResultList resultList) {
                 getFilmObs.postValue(resultList);
+                page++;
             }
 
             @Override

@@ -1,7 +1,9 @@
 package com.example.myapplicationbot.view;
 
+import static com.example.myapplicationbot.utils.IntentUtils.openLinkYoutube;
+import static com.example.myapplicationbot.utils.Utilities.glideImage;
+
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
-import com.bumptech.glide.Glide;
+import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.databinding.ActivityDetailBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.entities.ItemTrailer;
@@ -38,7 +40,7 @@ public class DetailActivity extends AppCompatActivity {
                 if (itemTrailer == null) {
                     Toast.makeText(DetailActivity.this, "VIDEO LINK DELETED", Toast.LENGTH_SHORT).show();
                 } else {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + itemTrailer.getKey())));
+                    openLinkYoutube(DetailActivity.this,itemTrailer.getKey());
                 }
             }
         });
@@ -51,38 +53,34 @@ public class DetailActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         ItemFilm itemFilm = (ItemFilm) extras.getSerializable(SEND_DATA_DETAIL);
 
-        Glide.with(DetailActivity.this)
-                .load("http://image.tmdb.org/t/p/w500" + itemFilm.getBackdropPath())
-                .into(binding.backImageDetail);
-        Glide.with(DetailActivity.this)
-                .load("http://image.tmdb.org/t/p/w500" + itemFilm.getPosterPath())
-                .into(binding.mainImageDetail);
-        binding.textTitleDetail.setText(itemFilm.getTitle());
-        binding.textRate.setText(String.valueOf(itemFilm.getVoteAverage()) + "/10");
-        binding.textVotes.setText(String.valueOf(itemFilm.getVoteCount()) + " votes");
-        binding.textDate.setText(itemFilm.getReleaseDate());
-        binding.textLanguage.setText(itemFilm.getOriginalLanguage() + "-sub");
-        binding.textDecription.setText(itemFilm.getOverview());
-        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+        glideImage(this,itemFilm.getBackdropPath(),binding.ivBackDetail);
+        glideImage(this,itemFilm.getPosterPath(),binding.ivMainDetail);
+        binding.tvTitleDetail.setText(itemFilm.getTitle());
+        binding.tvRate.setText(getString(R.string.max_rate, itemFilm.getVoteAverage()));
+        binding.tvVotes.setText(getString(R.string.votes,itemFilm.getVoteCount()));
+        binding.tvDate.setText(itemFilm.getReleaseDate());
+        binding.tvLanguage.setText(getString(R.string.sub,itemFilm.getOriginalLanguage()));
+        binding.tvDecription.setText(itemFilm.getOverview());
+        binding.btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
-        binding.btnTrailer.setOnClickListener(new View.OnClickListener() {
+        binding.btTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.getTrailer(itemFilm.getId());
             }
         });
-        binding.btnWatch.setOnClickListener(new View.OnClickListener() {
+        binding.btWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, WatchingActivity.class);
                 startActivity(intent);
             }
         });
-        binding.btnFav.setOnClickListener(new View.OnClickListener() {
+        binding.btFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(DetailActivity.this,"ADDED TO FAVOURITES",Toast.LENGTH_SHORT).show();
