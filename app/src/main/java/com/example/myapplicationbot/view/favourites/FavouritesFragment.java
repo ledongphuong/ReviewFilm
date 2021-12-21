@@ -1,5 +1,6 @@
 package com.example.myapplicationbot.view.favourites;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,15 +30,29 @@ import java.util.List;
 public class FavouritesFragment extends Fragment {
     private FragmentFavBinding binding;
     private FilmAdapter filmAdapter;
-    private FavouriteViewModel favouriteViewModel =new FavouriteViewModel();
+    private FavouriteViewModel favouriteViewModel = new FavouriteViewModel();
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
         public void onShowDetailClick(ItemFilm itemFilm) {
             Intent intent = new Intent(getContext(), DetailActivity.class);
             intent.putExtra(DetailActivity.SEND_DATA_DETAIL, itemFilm);
-            getContext().startActivity(intent);
+            startDetailForResult.launch(intent);
         }
     };
+    private ActivityResultLauncher<Intent> startDetailForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent intent = result.getData();
+                        int filmId = intent.getIntExtra(DetailActivity.FILM_ID_RESULT, -1);
+                        boolean isFavouritedfilm = intent.getBooleanExtra(DetailActivity.IS_FAVOURITED_RESULT, false);
+                        if (!isFavouritedfilm) {
+                            filmAdapter.removeFilmById(filmId);
+                        }
+                    }
+                }
+            });
 
     @Nullable
     @Override
@@ -50,7 +69,6 @@ public class FavouritesFragment extends Fragment {
             @Override
             public void onChanged(List<ItemFilm> itemFilms) {
                 filmAdapter.addData(itemFilms);
-
             }
         });
         favouriteViewModel.errorObs.observe(getViewLifecycleOwner(), new Observer<String>() {

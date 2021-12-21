@@ -15,4 +15,7 @@
     <string name="max_rate">%.1f/10</string>
     <string name="votes">%d votes</string>
     <string name="sub">%s-sub</string>
+    <string name="favourite">Favourite</string>
+    <string name="unfavourite">UnFavourite</string>
+    <string name="msg_video_deleted">VIDEO LINK DELETED</string>
 </resources>

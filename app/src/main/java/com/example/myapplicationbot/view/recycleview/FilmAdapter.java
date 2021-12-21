@@ -56,6 +56,16 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemRangeInserted(privSize, filmArrayList.size());
     }
 
+    public void removeFilmById(int id) {
+        for (int i = 0; i < filmArrayList.size(); i++) {
+            if (filmArrayList.get(i).getId() == id) {
+                filmArrayList.remove(i);
+                notifyItemRemoved(i);
+                break;
+            }
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ItemFilmBinding binding;
         private ItemFilmClick itemFilmClick;
