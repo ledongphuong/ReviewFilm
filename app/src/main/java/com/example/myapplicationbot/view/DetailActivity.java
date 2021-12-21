@@ -36,9 +36,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "listFav")
-                .allowMainThreadQueries()
-                .build();
         viewModel.getTrailerObs.observe(this, new Observer<ResultTrailer>() {
             @Override
             public void onChanged(ResultTrailer resultTrailer) {
