@@ -1,19 +1,16 @@
 package com.example.myapplicationbot.view.toprated;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplicationbot.base.BaseFragment;
 import com.example.myapplicationbot.databinding.FragmentTopratedBinding;
 import com.example.myapplicationbot.view.DetailActivity;
 import com.example.myapplicationbot.view.recycleview.FilmAdapter;
@@ -22,20 +19,9 @@ import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.viewmodel.TopRatedViewModel;
 
-import java.util.ArrayList;
-
-public class TopRatedFragment extends Fragment {
-    private FragmentTopratedBinding binding;
+public class TopRatedFragment extends BaseFragment<FragmentTopratedBinding, TopRatedViewModel> {
     private FilmAdapter filmAdapter;
     private boolean loading = false;
-    private TopRatedViewModel viewModel = new TopRatedViewModel();
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentTopratedBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
         public void onShowDetailClick(ItemFilm itemFilm) {
@@ -46,15 +32,26 @@ public class TopRatedFragment extends Fragment {
     };
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected FragmentTopratedBinding getBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
+        return FragmentTopratedBinding.inflate(inflater, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected TopRatedViewModel getViewModel() {
+        return new TopRatedViewModel();
+    }
 
-        //Retrofit
+    @Override
+    protected void initialize() {
+        filmAdapter = new FilmAdapter(itemFilmClick);
+        binding.rvItemFilm.setAdapter(filmAdapter);
+        binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        viewModel.getFilmTopRated();
+    }
+
+    @Override
+    protected void setViewModelObs() {
         viewModel.getFilmObs.observe(getViewLifecycleOwner(), new Observer<ResultList>() {
             @Override
             public void onChanged(ResultList resultList) {
@@ -62,22 +59,10 @@ public class TopRatedFragment extends Fragment {
                 loading = false;
             }
         });
-        viewModel.errorObs.observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                loading = false;
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
 
-        // RecycleView
-        filmAdapter = new FilmAdapter(itemFilmClick);
-        binding.rvItemFilm.setAdapter(filmAdapter);
-        binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //get page first
-        viewModel.getFilmTopRated();
-
+    @Override
+    protected void setViewEvent() {
         binding.rvItemFilm.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
