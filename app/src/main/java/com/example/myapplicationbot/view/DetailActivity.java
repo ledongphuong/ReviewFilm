@@ -6,36 +6,54 @@ import static com.example.myapplicationbot.utils.Utilities.glideImage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.room.Room;
 
 import com.example.myapplicationbot.R;
+import com.example.myapplicationbot.base.BaseActivity;
 import com.example.myapplicationbot.databinding.ActivityDetailBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.entities.ItemTrailer;
 import com.example.myapplicationbot.model.entities.ResultTrailer;
-import com.example.myapplicationbot.model.room.AppDatabase;
 import com.example.myapplicationbot.viewmodel.DetailViewModel;
 
 import java.util.List;
 
-public class DetailActivity extends AppCompatActivity {
-    private ActivityDetailBinding binding;
+public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailViewModel> {
     public static final String SEND_DATA_DETAIL = "send_data_to_detail";
     public static final String FILM_ID_RESULT = "film_id_result";
     public static final String IS_FAVOURITED_RESULT = "is_favourite_result";
-    private DetailViewModel viewModel = new DetailViewModel();
     private ItemFilm itemFilm;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityDetailBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    protected ActivityDetailBinding getBinding() {
+        return ActivityDetailBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected DetailViewModel getViewModel() {
+        return new DetailViewModel();
+    }
+
+    @Override
+    protected void initialize() {
+        Bundle extras = getIntent().getExtras();
+        itemFilm = (ItemFilm) extras.getSerializable(SEND_DATA_DETAIL);
+
+        viewModel.checkFilmIsFavourited(itemFilm.getId());
+
+        glideImage(this, itemFilm.getBackdropPath(), binding.ivBackDetail);
+        glideImage(this, itemFilm.getPosterPath(), binding.ivMainDetail);
+        binding.tvTitleDetail.setText(itemFilm.getTitle());
+        binding.tvRate.setText(getString(R.string.max_rate, itemFilm.getVoteAverage()));
+        binding.tvVotes.setText(getString(R.string.votes, itemFilm.getVoteCount()));
+        binding.tvDate.setText(itemFilm.getReleaseDate());
+        binding.tvLanguage.setText(getString(R.string.sub, itemFilm.getOriginalLanguage()));
+        binding.tvDecription.setText(itemFilm.getOverview());
+    }
+
+    @Override
+    protected void setViewModelObs() {
         viewModel.getTrailerObs.observe(this, new Observer<ResultTrailer>() {
             @Override
             public void onChanged(ResultTrailer resultTrailer) {
@@ -45,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
                         return;
                     }
                 }
-                Toast.makeText(DetailActivity.this, getString(R.string.msg_video_deleted), Toast.LENGTH_SHORT).show();
+                showToast(R.string.msg_video_deleted);
             }
         });
         viewModel.checkFilmIsFavouritedObs.observe(this, new Observer<Boolean>() {
@@ -70,26 +88,10 @@ public class DetailActivity extends AppCompatActivity {
                 setChangeFavouriteStatus(false);
             }
         });
+    }
 
-        viewModel.errorObs.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Toast.makeText(DetailActivity.this, s, Toast.LENGTH_SHORT).show();
-            }
-        });
-        Bundle extras = getIntent().getExtras();
-        itemFilm = (ItemFilm) extras.getSerializable(SEND_DATA_DETAIL);
-
-        viewModel.checkFilmIsFavourited(itemFilm.getId());
-
-        glideImage(this, itemFilm.getBackdropPath(), binding.ivBackDetail);
-        glideImage(this, itemFilm.getPosterPath(), binding.ivMainDetail);
-        binding.tvTitleDetail.setText(itemFilm.getTitle());
-        binding.tvRate.setText(getString(R.string.max_rate, itemFilm.getVoteAverage()));
-        binding.tvVotes.setText(getString(R.string.votes, itemFilm.getVoteCount()));
-        binding.tvDate.setText(itemFilm.getReleaseDate());
-        binding.tvLanguage.setText(getString(R.string.sub, itemFilm.getOriginalLanguage()));
-        binding.tvDecription.setText(itemFilm.getOverview());
+    @Override
+    protected void setViewEvent() {
         binding.btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

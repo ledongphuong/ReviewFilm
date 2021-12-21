@@ -2,15 +2,15 @@ package com.example.myapplicationbot.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.localRepository.LocalFilmRepository;
 
 import java.util.List;
 
-public class FavouriteViewModel {
+public class FavouriteViewModel extends BaseViewModel {
     private LocalFilmRepository localFilmRepository = new LocalFilmRepository();
     public MutableLiveData<List<ItemFilm>> getFavouriteFilmObs = new MutableLiveData<>();
-    public MutableLiveData<String> errorObs = new MutableLiveData<>();
 
     public void getFavourite() {
         localFilmRepository.getFavouriteFilm(new LocalFilmRepository.GetFavouriteFilmResponse() {

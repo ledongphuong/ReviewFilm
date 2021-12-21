@@ -2,6 +2,7 @@ package com.example.myapplicationbot.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.entities.ResultTrailer;
 import com.example.myapplicationbot.model.localRepository.LocalFilmRepository;
@@ -9,10 +10,9 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 
 import java.util.List;
 
-public class DetailViewModel {
+public class DetailViewModel extends BaseViewModel {
     private FilmRepository filmRepository = new FilmRepository();
     public MutableLiveData<ResultTrailer> getTrailerObs = new MutableLiveData<>();
-    public MutableLiveData<String> errorObs = new MutableLiveData<>();
     private LocalFilmRepository localFilmRepository = new LocalFilmRepository();
     public MutableLiveData<Boolean> checkFilmIsFavouritedObs = new MutableLiveData<>();
     public MutableLiveData<List<ItemFilm>> addFavouriteFilmObs = new MutableLiveData<>();
