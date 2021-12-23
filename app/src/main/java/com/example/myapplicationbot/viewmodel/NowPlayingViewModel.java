@@ -8,10 +8,14 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class NowPlayingViewModel extends BaseViewModel {
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     private int page = 1;
     private FilmRepository filmRepository;
+
     @Inject
     public NowPlayingViewModel(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;

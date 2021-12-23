@@ -8,6 +8,9 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class TopRatedViewModel extends BaseViewModel {
     private FilmRepository filmRepository;
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();

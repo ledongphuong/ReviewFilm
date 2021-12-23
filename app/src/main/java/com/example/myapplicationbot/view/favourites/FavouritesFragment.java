@@ -26,6 +26,9 @@ import com.example.myapplicationbot.viewmodel.FavouriteViewModel;
 
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class FavouritesFragment extends BaseFragment<FragmentFavBinding,FavouriteViewModel> {
     private FilmAdapter filmAdapter;
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
