@@ -19,6 +19,12 @@ import com.example.myapplicationbot.view.recycleview.FilmAdapter;
 import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
 import com.example.myapplicationbot.viewmodel.NowPlayingViewModel;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, NowPlayingViewModel> {
     private FilmAdapter filmAdapter;
     private boolean loading = false;

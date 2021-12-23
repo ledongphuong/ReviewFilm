@@ -6,10 +6,17 @@ import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.model.repository.FilmRepository;
 
+import javax.inject.Inject;
+
 public class TopRatedViewModel extends BaseViewModel {
-    private FilmRepository filmRepository = new FilmRepository();
+    private FilmRepository filmRepository;
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     private int page = 1;
+
+    @Inject
+    public TopRatedViewModel(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
 
     public void getFilmTopRated() {
         filmRepository.getFilmTopRated(page, new FilmRepository.GetFilmTopRatedResponse() {

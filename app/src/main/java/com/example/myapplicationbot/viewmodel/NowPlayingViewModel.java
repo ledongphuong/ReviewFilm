@@ -6,10 +6,16 @@ import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.model.repository.FilmRepository;
 
+import javax.inject.Inject;
+
 public class NowPlayingViewModel extends BaseViewModel {
-    private FilmRepository filmRepository = new FilmRepository();
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     private int page = 1;
+    private FilmRepository filmRepository;
+    @Inject
+    public NowPlayingViewModel(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
 
     public void getFilmNowPlaying() {
         filmRepository.getFilmNowPlaying(page, new FilmRepository.GetFilmNowPlayingResponse() {

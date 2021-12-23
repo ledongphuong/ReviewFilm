@@ -11,12 +11,16 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 import java.util.List;
 
 public class DetailViewModel extends BaseViewModel {
-    private FilmRepository filmRepository = new FilmRepository();
+    private FilmRepository filmRepository;
     public MutableLiveData<ResultTrailer> getTrailerObs = new MutableLiveData<>();
     private LocalFilmRepository localFilmRepository = new LocalFilmRepository();
     public MutableLiveData<Boolean> checkFilmIsFavouritedObs = new MutableLiveData<>();
     public MutableLiveData<List<ItemFilm>> addFavouriteFilmObs = new MutableLiveData<>();
     public MutableLiveData<ItemFilm> deleteFavouriteFilmObs = new MutableLiveData<>();
+
+    public DetailViewModel(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
 
     public void getTrailer(int id) {
         filmRepository.getTrailer(id, new FilmRepository.GetTrailerResponse() {
