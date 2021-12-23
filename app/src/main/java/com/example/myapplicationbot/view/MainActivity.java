@@ -6,6 +6,7 @@ import com.example.myapplicationbot.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myapplicationbot.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityMainBinding binding;
 
     @Override
@@ -32,5 +32,4 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.nvView, navController);
 
     }
-
 }

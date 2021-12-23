@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.base.BaseActivity;
@@ -28,11 +29,6 @@ public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailVi
     @Override
     protected ActivityDetailBinding getBinding() {
         return ActivityDetailBinding.inflate(getLayoutInflater());
-    }
-
-    @Override
-    protected DetailViewModel getViewModel() {
-        return new DetailViewModel();
     }
 
     @Override
@@ -124,6 +120,11 @@ public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailVi
                 }
             }
         });
+    }
+
+    @Override
+    protected Class<DetailViewModel> getViewModelClass() {
+        return DetailViewModel.class;
     }
 
     private void setChangeFavouriteStatus(boolean isFavouritedfilm) {
