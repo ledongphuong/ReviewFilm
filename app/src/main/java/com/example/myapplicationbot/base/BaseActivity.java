@@ -5,6 +5,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.viewbinding.ViewBinding;
 
 public abstract class BaseActivity<B extends ViewBinding, V extends BaseViewModel> extends AppCompatActivity {
@@ -13,19 +15,20 @@ public abstract class BaseActivity<B extends ViewBinding, V extends BaseViewMode
 
     protected abstract B getBinding();
 
-    protected abstract V getViewModel();
-
     protected abstract void initialize();
 
     protected abstract void setViewModelObs();
 
     protected abstract void setViewEvent();
 
+    protected abstract Class<V> getViewModelClass();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = getBinding();
-        viewModel = getViewModel();
+        viewModel = new ViewModelProvider(this).get(getViewModelClass());
+
         setContentView(binding.getRoot());
 
         setViewModelObs();

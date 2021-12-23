@@ -37,8 +37,8 @@ public class PopularFragment extends BaseFragment<FragmentPopularBinding,Popular
     }
 
     @Override
-    protected PopularViewModel getViewModel() {
-        return new PopularViewModel();
+    protected Class<PopularViewModel> getViewModelClass() {
+        return PopularViewModel.class;
     }
 
     @Override
