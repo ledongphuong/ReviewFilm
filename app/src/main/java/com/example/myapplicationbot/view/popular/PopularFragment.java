@@ -19,6 +19,9 @@ import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.viewmodel.PopularViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PopularFragment extends BaseFragment<FragmentPopularBinding,PopularViewModel> {
     private FilmAdapter filmAdapter;
     private boolean loading = false;

@@ -19,6 +19,9 @@ import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.viewmodel.TopRatedViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class TopRatedFragment extends BaseFragment<FragmentTopratedBinding, TopRatedViewModel> {
     private FilmAdapter filmAdapter;
     private boolean loading = false;

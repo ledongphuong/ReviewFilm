@@ -5,14 +5,22 @@ import com.example.myapplicationbot.model.entities.ResultTrailer;
 import com.example.myapplicationbot.model.retrofit.RetrofitDefault;
 import com.example.myapplicationbot.model.retrofit.FilmServices;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class FilmRepository {
+    private FilmServices filmServices;
+
+    @Inject
+    public FilmRepository(FilmServices filmServices) {
+        this.filmServices = filmServices;
+    }
 
     public void getFilmNowPlaying(int page, GetFilmNowPlayingResponse getFilmNowPlayingResponse) {
-        FilmServices filmServices = RetrofitDefault.getInstance().create(FilmServices.class);
         filmServices.getMoreList(page).enqueue(new Callback<ResultList>() {
             @Override
             public void onResponse(Call<ResultList> call, Response<ResultList> response) {

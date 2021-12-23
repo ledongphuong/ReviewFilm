@@ -8,8 +8,18 @@ import com.example.myapplicationbot.model.localRepository.LocalFilmRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class FavouriteViewModel extends BaseViewModel {
-    private LocalFilmRepository localFilmRepository = new LocalFilmRepository();
+    @Inject
+    public FavouriteViewModel(LocalFilmRepository localFilmRepository) {
+        this.localFilmRepository = localFilmRepository;
+    }
+
+    private LocalFilmRepository localFilmRepository;
     public MutableLiveData<List<ItemFilm>> getFavouriteFilmObs = new MutableLiveData<>();
 
     public void getFavourite() {

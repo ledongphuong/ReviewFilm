@@ -17,9 +17,15 @@ import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.entities.ItemTrailer;
 import com.example.myapplicationbot.model.entities.ResultTrailer;
 import com.example.myapplicationbot.viewmodel.DetailViewModel;
+import com.google.gson.Gson;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailViewModel> {
     public static final String SEND_DATA_DETAIL = "send_data_to_detail";
     public static final String FILM_ID_RESULT = "film_id_result";

@@ -6,10 +6,20 @@ import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.model.repository.FilmRepository;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class PopularViewModel extends BaseViewModel {
-    private FilmRepository filmRepository = new FilmRepository();
+    private FilmRepository filmRepository;
     public MutableLiveData<ResultList> getFilmObs = new MutableLiveData<>();
     private int page = 1;
+
+    @Inject
+    public PopularViewModel(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
 
     public void getFimPopular() {
         filmRepository.getFilmPopuplar(page, new FilmRepository.GetFilmPopularResponse() {

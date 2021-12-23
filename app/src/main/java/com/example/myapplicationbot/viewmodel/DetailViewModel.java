@@ -10,13 +10,25 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class DetailViewModel extends BaseViewModel {
-    private FilmRepository filmRepository = new FilmRepository();
+    private FilmRepository filmRepository;
     public MutableLiveData<ResultTrailer> getTrailerObs = new MutableLiveData<>();
-    private LocalFilmRepository localFilmRepository = new LocalFilmRepository();
+    private LocalFilmRepository localFilmRepository;
     public MutableLiveData<Boolean> checkFilmIsFavouritedObs = new MutableLiveData<>();
     public MutableLiveData<List<ItemFilm>> addFavouriteFilmObs = new MutableLiveData<>();
     public MutableLiveData<ItemFilm> deleteFavouriteFilmObs = new MutableLiveData<>();
+
+    @Inject
+    public DetailViewModel(FilmRepository filmRepository,LocalFilmRepository localFilmRepository) {
+        this.filmRepository = filmRepository;
+        this.localFilmRepository = localFilmRepository;
+    }
+
 
     public void getTrailer(int id) {
         filmRepository.getTrailer(id, new FilmRepository.GetTrailerResponse() {

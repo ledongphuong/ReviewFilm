@@ -12,7 +12,7 @@ import com.example.myapplicationbot.model.entities.ResultListI;
 import java.util.List;
 
 @Dao
-public interface ItemFavouriteDAO {
+public interface FilmDAO {
     @Insert
     public void insert(ItemFilm... items);
 

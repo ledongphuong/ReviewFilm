@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -63,4 +64,7 @@ dependencies {
     implementation  "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor  "android.arch.persistence.room:compiler:1.0.0"
 
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    annotationProcessor "com.google.dagger:hilt-compiler:2.38.1"
 }

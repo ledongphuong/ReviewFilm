@@ -7,5 +7,5 @@ import com.example.myapplicationbot.model.entities.ItemFilm;
 
 @Database(entities = {ItemFilm.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract ItemFavouriteDAO getItemDAO();
+    public abstract FilmDAO getItemDAO();
 }
