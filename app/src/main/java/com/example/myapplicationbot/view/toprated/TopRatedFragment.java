@@ -37,8 +37,8 @@ public class TopRatedFragment extends BaseFragment<FragmentTopratedBinding, TopR
     }
 
     @Override
-    protected TopRatedViewModel getViewModel() {
-        return new TopRatedViewModel();
+    protected Class<TopRatedViewModel> getViewModelClass() {
+        return TopRatedViewModel.class;
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.view.DetailActivity;
 import com.example.myapplicationbot.view.recycleview.FilmAdapter;
 import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
+import com.example.myapplicationbot.viewmodel.FavouriteViewModel;
 import com.example.myapplicationbot.viewmodel.NowPlayingViewModel;
 
 public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, NowPlayingViewModel> {
@@ -37,8 +39,8 @@ public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, 
     }
 
     @Override
-    protected NowPlayingViewModel getViewModel() {
-        return new NowPlayingViewModel();
+    protected Class<NowPlayingViewModel> getViewModelClass() {
+        return NowPlayingViewModel.class;
     }
 
     @Override

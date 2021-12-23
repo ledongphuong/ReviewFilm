@@ -12,6 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplicationbot.base.BaseFragment;
@@ -55,9 +57,10 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
     }
 
     @Override
-    protected FavouriteViewModel getViewModel() {
-        return new FavouriteViewModel();
+    protected Class<FavouriteViewModel> getViewModelClass() {
+        return FavouriteViewModel.class;
     }
+
 
     @Override
     protected void initialize() {
