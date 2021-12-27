@@ -13,6 +13,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @HiltViewModel
 public class DetailViewModel extends BaseViewModel {
@@ -31,17 +34,15 @@ public class DetailViewModel extends BaseViewModel {
 
 
     public void getTrailer(int id) {
-        filmRepository.getTrailer(id, new FilmRepository.GetTrailerResponse() {
-            @Override
-            public void onResponse(ResultTrailer resultTrailer) {
-                getTrailerObs.postValue(resultTrailer);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+        filmRepository.getTrailer(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    getTrailerObs.postValue(response);
+                }, throwable -> {
+                    errorObs.postValue(throwable.getMessage());
+                }));
     }
 
     public void checkFilmIsFavourited(int id) {

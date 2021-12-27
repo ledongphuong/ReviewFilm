@@ -9,6 +9,11 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @HiltViewModel
 public class PopularViewModel extends BaseViewModel {
@@ -22,17 +27,15 @@ public class PopularViewModel extends BaseViewModel {
     }
 
     public void getFimPopular() {
-        filmRepository.getFilmPopuplar(page, new FilmRepository.GetFilmPopularResponse() {
-            @Override
-            public void onResponse(ResultList resultList) {
-                getFilmObs.postValue(resultList);
-                page++;
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                filmRepository.getFilmPopuplar(page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getFilmObs.postValue(response);
+                            page++;
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 }

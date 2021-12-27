@@ -6,9 +6,13 @@ import com.example.myapplicationbot.base.BaseViewModel;
 import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.model.repository.FilmRepository;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @HiltViewModel
 public class NowPlayingViewModel extends BaseViewModel {
@@ -22,17 +26,17 @@ public class NowPlayingViewModel extends BaseViewModel {
     }
 
     public void getFilmNowPlaying() {
-        filmRepository.getFilmNowPlaying(page, new FilmRepository.GetFilmNowPlayingResponse() {
-            @Override
-            public void onResponse(ResultList resultList) {
-                getFilmObs.postValue(resultList);
-                page++;
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                filmRepository.getFilmNowPlaying(page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getFilmObs.postValue(response);
+                            page++;
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
+
+    //map, flatmap
 }
