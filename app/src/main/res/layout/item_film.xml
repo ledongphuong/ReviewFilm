@@ -9,44 +9,57 @@
         android:id="@+id/ivImage"
         android:layout_width="100dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        tools:text="Tittle"
-        android:textSize="15sp"
-        android:textColor="@color/black"
         android:id="@+id/tvTitle"
-        android:layout_width="170dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/ivImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Tittle" />
 
     <TextView
         android:id="@+id/tvRate"
-        android:layout_width="170dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        tools:text="Rate"
         app:layout_constraintStart_toEndOf="@+id/ivImage"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="Rate" />
 
     <TextView
         android:id="@+id/tvVotes"
-        android:layout_width="170dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        tools:text="votes"
         app:layout_constraintStart_toEndOf="@+id/ivImage"
         app:layout_constraintTop_toBottomOf="@+id/tvRate"
-        />
+        tools:text="votes" />
+
+    <RatingBar
+        android:id="@+id/rbRate"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:numStars="5"
+        android:progressTint="@color/colorYellow"
+        android:rating="2.5"
+        android:secondaryProgressTint="@color/colorYellow"
+        android:stepSize="0.05"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvVotes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

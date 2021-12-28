@@ -7,25 +7,26 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.myapplicationbot.model.entities.ItemFilm;
-import com.example.myapplicationbot.model.entities.ResultListI;
 
 import java.util.List;
+
+import io.reactivex.Maybe;
 
 @Dao
 public interface FilmDAO {
     @Insert
-    public void insert(ItemFilm... items);
+    Maybe<Long> insert(ItemFilm item);
 
     @Update
     public void update(ItemFilm... items);
 
     @Delete
-    public void delete(ItemFilm item);
+    Maybe<Integer> delete(ItemFilm item);
 
     @Query("SELECT * FROM items")
-    public List<ItemFilm> getItems();
+    Maybe<List<ItemFilm>> getItems();
 
     @Query("SELECT * FROM items WHERE id= :id")
-    public ItemFilm geItemById(int id);
+    Maybe<ItemFilm> geItemById(int id);
 
 }

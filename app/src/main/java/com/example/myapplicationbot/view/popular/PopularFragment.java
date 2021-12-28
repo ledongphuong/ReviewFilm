@@ -6,10 +6,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.base.BaseFragment;
 import com.example.myapplicationbot.databinding.FragmentPopularBinding;
 import com.example.myapplicationbot.view.DetailActivity;
@@ -50,6 +53,12 @@ public class PopularFragment extends BaseFragment<FragmentPopularBinding,Popular
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //line gray
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        binding.rvItemFilm.addItemDecoration(divider);
+
+        //get data
         viewModel.getFimPopular();
     }
 

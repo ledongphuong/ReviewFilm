@@ -11,11 +11,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.base.BaseFragment;
 import com.example.myapplicationbot.databinding.FragmentFavBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
@@ -71,6 +72,12 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //line gray
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        binding.rvItemFilm.addItemDecoration(divider);
+
+        //get data
         viewModel.getFavourite();
     }
 

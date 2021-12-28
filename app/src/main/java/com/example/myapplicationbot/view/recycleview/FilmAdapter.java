@@ -81,6 +81,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             binding.tvTitle.setText(itemFilm.getTitle());
             binding.tvRate.setText(itemView.getContext().getString(R.string.max_rate, itemFilm.getVoteAverage()));
             binding.tvVotes.setText(itemView.getContext().getString(R.string.votes, itemFilm.getVoteCount()));
+            binding.rbRate.setRating(itemFilm.getVoteAverage()/10*5);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

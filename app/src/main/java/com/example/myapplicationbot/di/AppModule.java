@@ -54,19 +54,16 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public static AppDatabase providesAppDatabase(){
+    public static AppDatabase providesAppDatabase() {
         return Room.databaseBuilder(App.applicationContext, AppDatabase.class, "listFav")
-                .allowMainThreadQueries()
                 .build();
     }
 
-
     @Provides
     @Singleton
-    public static FilmDAO providesItemFilmDAO(AppDatabase appDatabase){
+    public static FilmDAO providesItemFilmDAO(AppDatabase appDatabase) {
         return appDatabase.getItemDAO();
     }
-
 
     @Provides
     @Singleton

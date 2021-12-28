@@ -6,11 +6,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.base.BaseFragment;
 import com.example.myapplicationbot.databinding.FragmentNowplayingBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
@@ -18,11 +20,7 @@ import com.example.myapplicationbot.model.entities.ResultList;
 import com.example.myapplicationbot.view.DetailActivity;
 import com.example.myapplicationbot.view.recycleview.FilmAdapter;
 import com.example.myapplicationbot.view.recycleview.ItemFilmClick;
-import com.example.myapplicationbot.viewmodel.FavouriteViewModel;
 import com.example.myapplicationbot.viewmodel.NowPlayingViewModel;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -79,10 +77,17 @@ public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, 
 
     @Override
     protected void initialize() {
+
         filmAdapter = new FilmAdapter(itemFilmClick);
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //line gray
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        binding.rvItemFilm.addItemDecoration(divider);
+
+        //get data
         viewModel.getFilmNowPlaying();
     }
 }

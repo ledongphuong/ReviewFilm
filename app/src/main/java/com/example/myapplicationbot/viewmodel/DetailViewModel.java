@@ -23,68 +23,61 @@ public class DetailViewModel extends BaseViewModel {
     public MutableLiveData<ResultTrailer> getTrailerObs = new MutableLiveData<>();
     private LocalFilmRepository localFilmRepository;
     public MutableLiveData<Boolean> checkFilmIsFavouritedObs = new MutableLiveData<>();
-    public MutableLiveData<List<ItemFilm>> addFavouriteFilmObs = new MutableLiveData<>();
-    public MutableLiveData<ItemFilm> deleteFavouriteFilmObs = new MutableLiveData<>();
+    public MutableLiveData<Long> addFavouriteFilmObs = new MutableLiveData<>();
+    public MutableLiveData<Integer> deleteFavouriteFilmObs = new MutableLiveData<>();
 
     @Inject
-    public DetailViewModel(FilmRepository filmRepository,LocalFilmRepository localFilmRepository) {
+    public DetailViewModel(FilmRepository filmRepository, LocalFilmRepository localFilmRepository) {
         this.filmRepository = filmRepository;
         this.localFilmRepository = localFilmRepository;
     }
 
-
     public void getTrailer(int id) {
         disposable.add(
-        filmRepository.getTrailer(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    getTrailerObs.postValue(response);
-                }, throwable -> {
-                    errorObs.postValue(throwable.getMessage());
-                }));
+                filmRepository.getTrailer(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            getTrailerObs.postValue(response);
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 
     public void checkFilmIsFavourited(int id) {
-        localFilmRepository.getFavouriteFilmById(id, new LocalFilmRepository.GetFavouriteFilmByIdResponse() {
-            @Override
-            public void onResponse(ItemFilm favouriteFilm) {
-                boolean isExistFilm = favouriteFilm != null;
-                checkFilmIsFavouritedObs.postValue(isExistFilm);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                localFilmRepository.getFavouriteFilmById(id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            boolean isExistFilm = response != null;
+                            checkFilmIsFavouritedObs.postValue(isExistFilm);
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 
     public void addFilmFavourite(ItemFilm itemFilm) {
-        localFilmRepository.addFavouriteFilm(itemFilm, new LocalFilmRepository.AddFavouriteFilmResponse() {
-            @Override
-            public void onResponse(List<ItemFilm> favouriteFilms) {
-                addFavouriteFilmObs.postValue(favouriteFilms);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                localFilmRepository.addFavouriteFilm(itemFilm)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            addFavouriteFilmObs.postValue(response);
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 
     public void deleteFilmFavourite(ItemFilm itemFilm) {
-        localFilmRepository.deleteFavouriteFilm(itemFilm, new LocalFilmRepository.DeleteFavouriteFilmResponse() {
-            @Override
-            public void onResponse(ItemFilm itemFilm) {
-                deleteFavouriteFilmObs.postValue(itemFilm);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                localFilmRepository.deleteFavouriteFilm(itemFilm)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            deleteFavouriteFilmObs.postValue(response);
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 }

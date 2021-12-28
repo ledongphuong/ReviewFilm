@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
+
 
 public class LocalFilmRepository {
     private FilmDAO filmDAO;
@@ -16,67 +18,20 @@ public class LocalFilmRepository {
         this.filmDAO = filmDAO;
     }
 
-    public void getFavouriteFilm(GetFavouriteFilmResponse getFavouriteFilmResponse) {
-        try {
-            List<ItemFilm> listFavourite = filmDAO.getItems();
-            getFavouriteFilmResponse.onResponse(listFavourite);
-        } catch (Exception e) {
-            getFavouriteFilmResponse.onFailure(e.getMessage());
-        }
-
+    public Maybe<List<ItemFilm>> getFavouriteFilm() {
+        return filmDAO.getItems();
     }
 
-    public void getFavouriteFilmById(int id, GetFavouriteFilmByIdResponse getFavouriteFilmByIdResponse) {
-        try {
-            ItemFilm film = filmDAO.geItemById(id);
-            getFavouriteFilmByIdResponse.onResponse(film);
-        } catch (Exception e) {
-            getFavouriteFilmByIdResponse.onFailure(e.getMessage());
-        }
-
+    public Maybe<ItemFilm> getFavouriteFilmById(int id) {
+        return filmDAO.geItemById(id);
     }
 
-    public void addFavouriteFilm(ItemFilm itemFilm, AddFavouriteFilmResponse addFavouriteFilmResponse) {
-        try {
-            filmDAO.insert(itemFilm);
-            List<ItemFilm> listFavourite = filmDAO.getItems();
-            addFavouriteFilmResponse.onResponse(listFavourite);
-
-        } catch (Exception e) {
-            addFavouriteFilmResponse.onFailure(e.getMessage());
-        }
+    public Maybe<Long> addFavouriteFilm(ItemFilm itemFilm) {
+        return filmDAO.insert(itemFilm);
     }
 
-    public void deleteFavouriteFilm(ItemFilm itemFilm, DeleteFavouriteFilmResponse deleteFavouriteFilmResponse) {
-        try {
-            filmDAO.delete(itemFilm);
-            deleteFavouriteFilmResponse.onResponse(itemFilm);
-        } catch (Exception e) {
-            deleteFavouriteFilmResponse.onFailure(e.getMessage());
-        }
+    public Maybe<Integer> deleteFavouriteFilm(ItemFilm itemFilm) {
+        return filmDAO.delete(itemFilm);
     }
 
-    public interface GetFavouriteFilmResponse {
-        void onResponse(List<ItemFilm> favouriteFilms);
-
-        void onFailure(String errorMessage);
-    }
-
-    public interface GetFavouriteFilmByIdResponse {
-        void onResponse(ItemFilm favouriteFilm);
-
-        void onFailure(String errorMessage);
-    }
-
-    public interface AddFavouriteFilmResponse {
-        void onResponse(List<ItemFilm> favouriteFilms);
-
-        void onFailure(String errorMessage);
-    }
-
-    public interface DeleteFavouriteFilmResponse {
-        void onResponse(ItemFilm itemFilm);
-
-        void onFailure(String errorMessage);
-    }
 }
