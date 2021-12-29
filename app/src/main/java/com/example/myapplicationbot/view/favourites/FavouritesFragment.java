@@ -3,6 +3,7 @@ package com.example.myapplicationbot.view.favourites;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResult;
@@ -30,7 +31,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class FavouritesFragment extends BaseFragment<FragmentFavBinding,FavouriteViewModel> {
+public class FavouritesFragment extends BaseFragment<FragmentFavBinding, FavouriteViewModel> {
     private FilmAdapter filmAdapter;
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
@@ -57,7 +58,7 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
 
     @Override
     protected FragmentFavBinding getBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentFavBinding.inflate(inflater,container,false);
+        return FragmentFavBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -83,6 +84,16 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
 
     @Override
     protected void setViewModelObs() {
+        viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean == true) {
+                    binding.progressLoader.setVisibility(View.VISIBLE);
+                } else {
+                    binding.progressLoader.setVisibility(View.GONE);
+                }
+            }
+        });
         viewModel.getFavouriteFilmObs.observe(getViewLifecycleOwner(), new Observer<List<ItemFilm>>() {
             @Override
             public void onChanged(List<ItemFilm> itemFilms) {

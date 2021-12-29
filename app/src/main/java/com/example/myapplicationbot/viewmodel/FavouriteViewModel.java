@@ -7,6 +7,7 @@ import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.localRepository.LocalFilmRepository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -27,8 +28,12 @@ public class FavouriteViewModel extends BaseViewModel {
     public void getFavourite() {
         disposable.add(
         localFilmRepository.getFavouriteFilm()
+                .toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(onSubscribe -> loadingObs.postValue(true))
+                .doOnComplete(()->loadingObs.postValue(false))
+                .doOnError(onError -> loadingObs.postValue(false))
                 .subscribe(response -> {
                     getFavouriteFilmObs.postValue(response);
                 }, throwable -> {

@@ -2,6 +2,7 @@ package com.example.myapplicationbot.view.nowplaying;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,17 @@ public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, 
 
     @Override
     protected void setViewModelObs() {
+        viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean == true){
+                    binding.progressLoader.setVisibility(View.VISIBLE);
+                }
+                else {
+                    binding.progressLoader.setVisibility(View.GONE);
+                }
+            }
+        });
         viewModel.getFilmObs.observe(getViewLifecycleOwner(), new Observer<ResultList>() {
             @Override
             public void onChanged(ResultList resultList) {
@@ -77,7 +89,6 @@ public class NowPlayingFragment extends BaseFragment<FragmentNowplayingBinding, 
 
     @Override
     protected void initialize() {
-
         filmAdapter = new FilmAdapter(itemFilmClick);
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));

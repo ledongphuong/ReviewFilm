@@ -31,6 +31,9 @@ public class PopularViewModel extends BaseViewModel {
                 filmRepository.getFilmPopuplar(page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(onSubscribe -> loadingObs.postValue(true))
+                        .doOnComplete(()->loadingObs.postValue(false))
+                        .doOnError(onError -> loadingObs.postValue(false))
                         .subscribe(response -> {
                             getFilmObs.postValue(response);
                             page++;
