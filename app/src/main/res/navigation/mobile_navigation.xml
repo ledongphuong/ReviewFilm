@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/nvNowplaying"
-        android:name="com.example.myapplicationbot.view.nowplaying.NowPlayingFragment"
+        android:name="com.example.RvFilm.view.nowplaying.NowPlayingFragment"
         android:label="@string/now_playing"
         tools:layout="@layout/fragment_nowplaying" />
 
     <fragment
         android:id="@+id/nvPoppular"
-        android:name="com.example.myapplicationbot.view.popular.PopularFragment"
+        android:name="com.example.RvFilm.view.popular.PopularFragment"
         android:label="@string/popular"
         tools:layout="@layout/fragment_popular" />
 
     <fragment
         android:id="@+id/nvToprated"
-        android:name="com.example.myapplicationbot.view.toprated.TopRatedFragment"
+        android:name="com.example.RvFilm.view.toprated.TopRatedFragment"
         android:label="@string/top_rated"
         tools:layout="@layout/fragment_toprated" />
     <fragment
         android:id="@+id/nvFav"
-        android:name="com.example.myapplicationbot.view.favourites.FavouritesFragment"
+        android:name="com.example.RvFilm.view.favourites.FavouritesFragment"
         android:label="@string/favourites"
         tools:layout="@layout/fragment_fav" />
 </navigation>
