@@ -87,7 +87,7 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding, Favouri
         viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if (aBoolean == true) {
+                if (aBoolean) {
                     binding.progressLoader.setVisibility(View.VISIBLE);
                 } else {
                     binding.progressLoader.setVisibility(View.GONE);

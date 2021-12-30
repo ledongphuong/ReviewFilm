@@ -68,7 +68,7 @@ public class TopRatedFragment extends BaseFragment<FragmentTopratedBinding, TopR
         viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if(aBoolean == true){
+                if(aBoolean){
                     binding.progressLoader.setVisibility(View.VISIBLE);
                 }
                 else {

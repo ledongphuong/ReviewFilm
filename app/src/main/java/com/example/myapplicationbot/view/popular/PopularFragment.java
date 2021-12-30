@@ -68,7 +68,7 @@ public class PopularFragment extends BaseFragment<FragmentPopularBinding,Popular
         viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if(aBoolean == true){
+                if(aBoolean){
                     binding.progressLoader.setVisibility(View.VISIBLE);
                 }
                 else {
