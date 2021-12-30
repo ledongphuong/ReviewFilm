@@ -3,6 +3,7 @@ package com.example.myapplicationbot.view.favourites;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResult;
@@ -11,11 +12,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myapplicationbot.R;
 import com.example.myapplicationbot.base.BaseFragment;
 import com.example.myapplicationbot.databinding.FragmentFavBinding;
 import com.example.myapplicationbot.model.entities.ItemFilm;
@@ -29,7 +31,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class FavouritesFragment extends BaseFragment<FragmentFavBinding,FavouriteViewModel> {
+public class FavouritesFragment extends BaseFragment<FragmentFavBinding, FavouriteViewModel> {
     private FilmAdapter filmAdapter;
     private ItemFilmClick itemFilmClick = new ItemFilmClick() {
         @Override
@@ -56,7 +58,7 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
 
     @Override
     protected FragmentFavBinding getBinding(@NonNull LayoutInflater inflater, @Nullable ViewGroup container) {
-        return FragmentFavBinding.inflate(inflater,container,false);
+        return FragmentFavBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -71,11 +73,27 @@ public class FavouritesFragment extends BaseFragment<FragmentFavBinding,Favourit
         binding.rvItemFilm.setAdapter(filmAdapter);
         binding.rvItemFilm.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //line gray
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        binding.rvItemFilm.addItemDecoration(divider);
+
+        //get data
         viewModel.getFavourite();
     }
 
     @Override
     protected void setViewModelObs() {
+        viewModel.loadingObs.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    binding.progressLoader.setVisibility(View.VISIBLE);
+                } else {
+                    binding.progressLoader.setVisibility(View.GONE);
+                }
+            }
+        });
         viewModel.getFavouriteFilmObs.observe(getViewLifecycleOwner(), new Observer<List<ItemFilm>>() {
             @Override
             public void onChanged(List<ItemFilm> itemFilms) {

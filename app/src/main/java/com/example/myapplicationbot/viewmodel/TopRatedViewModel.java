@@ -9,6 +9,8 @@ import com.example.myapplicationbot.model.repository.FilmRepository;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @HiltViewModel
 public class TopRatedViewModel extends BaseViewModel {
@@ -22,17 +24,18 @@ public class TopRatedViewModel extends BaseViewModel {
     }
 
     public void getFilmTopRated() {
-        filmRepository.getFilmTopRated(page, new FilmRepository.GetFilmTopRatedResponse() {
-            @Override
-            public void onResponse(ResultList resultList) {
-                getFilmObs.postValue(resultList);
-                page++;
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
+        disposable.add(
+                filmRepository.getFilmTopRated(page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(onSubscribe -> loadingObs.postValue(true))
+                        .doOnComplete(() -> loadingObs.postValue(false))
+                        .doOnError(onError -> loadingObs.postValue(false))
+                        .subscribe(response -> {
+                            getFilmObs.postValue(response);
+                            page++;
+                        }, throwable -> {
+                            errorObs.postValue(throwable.getMessage());
+                        }));
     }
 }

@@ -1,8 +1,10 @@
 package com.example.myapplicationbot.di;
 
+import androidx.room.Database;
 import androidx.room.Room;
 
 import com.example.myapplicationbot.App;
+import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.retrofit.FilmServices;
 import com.example.myapplicationbot.model.room.AppDatabase;
 import com.example.myapplicationbot.model.room.FilmDAO;
@@ -19,6 +21,7 @@ import dagger.hilt.components.SingletonComponent;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -39,6 +42,7 @@ public class AppModule {
         return new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build())
                 .build();
     }
@@ -50,19 +54,16 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public static AppDatabase providesAppDatabase(){
+    public static AppDatabase providesAppDatabase() {
         return Room.databaseBuilder(App.applicationContext, AppDatabase.class, "listFav")
-                .allowMainThreadQueries()
                 .build();
     }
 
-
     @Provides
     @Singleton
-    public static FilmDAO providesItemFilmDAO(AppDatabase appDatabase){
+    public static FilmDAO providesItemFilmDAO(AppDatabase appDatabase) {
         return appDatabase.getItemDAO();
     }
-
 
     @Provides
     @Singleton

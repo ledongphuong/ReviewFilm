@@ -78,15 +78,15 @@ public class DetailActivity extends BaseActivity<ActivityDetailBinding, DetailVi
                 }
             }
         });
-        viewModel.addFavouriteFilmObs.observe(this, new Observer<List<ItemFilm>>() {
+        viewModel.addFavouriteFilmObs.observe(this, new Observer<Long>() {
             @Override
-            public void onChanged(List<ItemFilm> favouriteFilms) {
+            public void onChanged(Long aLong) {
                 setChangeFavouriteStatus(true);
             }
         });
-        viewModel.deleteFavouriteFilmObs.observe(this, new Observer<ItemFilm>() {
+        viewModel.deleteFavouriteFilmObs.observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(ItemFilm itemFilm) {
+            public void onChanged(Integer integer) {
                 setChangeFavouriteStatus(false);
             }
         });

@@ -7,33 +7,37 @@ import com.example.myapplicationbot.model.entities.ItemFilm;
 import com.example.myapplicationbot.model.localRepository.LocalFilmRepository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @HiltViewModel
 public class FavouriteViewModel extends BaseViewModel {
+    private LocalFilmRepository localFilmRepository;
+    public MutableLiveData<List<ItemFilm>> getFavouriteFilmObs = new MutableLiveData<>();
+
     @Inject
     public FavouriteViewModel(LocalFilmRepository localFilmRepository) {
         this.localFilmRepository = localFilmRepository;
     }
 
-    private LocalFilmRepository localFilmRepository;
-    public MutableLiveData<List<ItemFilm>> getFavouriteFilmObs = new MutableLiveData<>();
-
     public void getFavourite() {
-        localFilmRepository.getFavouriteFilm(new LocalFilmRepository.GetFavouriteFilmResponse() {
-            @Override
-            public void onResponse(List<ItemFilm> favouriteFilms) {
-                getFavouriteFilmObs.postValue(favouriteFilms);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                errorObs.postValue(errorMessage);
-            }
-        });
-
+        disposable.add(
+        localFilmRepository.getFavouriteFilm()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(onSubscribe -> loadingObs.postValue(true))
+                .doOnComplete(()->loadingObs.postValue(false))
+                .doOnError(onError -> loadingObs.postValue(false))
+                .subscribe(response -> {
+                    getFavouriteFilmObs.postValue(response);
+                }, throwable -> {
+                    errorObs.postValue(throwable.getMessage());
+                }));
     }
 }
